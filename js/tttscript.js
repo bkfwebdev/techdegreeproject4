@@ -1,44 +1,59 @@
     var xWinsString = "XXX";
 	var oWinsString = "OOO";
-    var currentPlayer = ""
+    var currentPlayer = "O"
     var theBoard = [];
-
-    svgOimage = 'url("img/o.svg")';
-    
-    svgXimage = 'url("img/x.svg")';
-    
+	var svgOimage = 'url("img/o.svg")';
+    var svgXimage = 'url("img/x.svg")';
+$("#player1").addClass("active");    
 var demBoxes = document.getElementsByClassName("box");
-    activeShape = null
-    document.getElementById("player1").onclick = function(){activeShape = svgOimage; currentPlayer = "O";}
-    document.getElementById("player2").onclick = function(){activeShape = svgXimage; currentPlayer = "X";}
-    
-    blankBox = "";
-    activePlayer = null;
-    // game board event listener
+    activeShape = svgOimage;
+// game board event listener for player selected box
 var selectBoxEvent = function (gamebox){
         gamebox.onclick = function(){
-            if (currentPlayer === "O"){this.classList += " box-filled-1"; this.style.backgroundImage = activeShape;}
-            if (currentPlayer === "X"){this.classList += " box-filled-2"; this.style.backgroundImage = activeShape;}
-            var selectedBoxNum = Array.prototype.indexOf.call(demBoxes, this);
+			var selectedBoxNum = Array.prototype.indexOf.call(demBoxes, this);
                 console.log(selectedBoxNum);
             theBoard[selectedBoxNum] = currentPlayer;
-            if (winCheck(theBoard,xWinsString) === true){console.log("x wins!");}
-            if (winCheck(theBoard,oWinsString) === true){console.log("o wins!");} 
-                                    }
-    }
-     for (var index = 0; index < demBoxes.length; index++){
-         selectBoxEvent(demBoxes[index]);
-        
+            if (currentPlayer === "O"){
+				this.classList += " box-filled-1"; 
+				this.style.backgroundImage = activeShape;
+				activeShape = svgXimage; 
+				currentPlayer = "X";
+				if ($("#player1").hasClass("active")){
+					$("#player1").removeClass("active");
+					$("#player2").addClass("active");
+					}
+			}else{
+            if (currentPlayer === "X"){
+				this.classList += " box-filled-2"; 
+				this.style.backgroundImage = activeShape;
+				activeShape = svgOimage;
+				currentPlayer = "O";
+				if ($("#player2").hasClass("active")){
+					$("#player2").removeClass("active");
+					$("#player1").addClass("active");
+					}
+			}
+			}	
             
-         $(demBoxes[index]).hover(function(){
+            if (winCheck(theBoard,xWinsString) === true){console.log("X wins!");}
+            if (winCheck(theBoard,oWinsString) === true){console.log("O wins!");} 
+                                    
+    };
+	
+}
+for (var index = 0; index < demBoxes.length; index++){
+	 selectBoxEvent(demBoxes[index]);
+$(demBoxes[index]).hover(function(){
               var  boxStatus = $(this).hasClass("box-filled-1") || $(this).hasClass("box-filled-2");
              if(boxStatus === false){$(this).css("background-image", activeShape);}
     }, function(){
               var  boxStatus = $(this).hasClass("box-filled-1") || $(this).hasClass("box-filled-2");
              if (boxStatus === false){$(this).css("background-image", "none");}
 });
+}
          
-     }
+	
+
                                   
 var winCheck = function (board,testString){
     var boolTest = [];
@@ -55,22 +70,3 @@ var winCheck = function (board,testString){
     }
     return false;
 }
-winList = {
-    win1:[0,1,2],
-    win2:[3,4,5],
-    win3:[6,7,8],
-    win4:[0,3,6],
-    win5:[1,4,7],
-    win6:[2,5,8],
-    win7:[0,4,8],
-    win8:[6,4,2]
-};
-
-
-function getPlayerInput(){}
-function updateDisplay(){}
-function theWinnerIs(){}
-function newGame(){}
-function tttBrain (){"play the game"}
-function tttOffense (){"find path to three in a row"}
-function tttDefense (){"block opponents path to three in a row"}
