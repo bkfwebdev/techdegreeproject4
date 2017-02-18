@@ -4,6 +4,21 @@
     var theBoard = [];
 	var svgOimage = 'url("img/o.svg")';
     var svgXimage = 'url("img/x.svg")';
+	function gameStart (){
+$("#board").hide;
+startDiv = document.createElement("div");
+startDiv.innerHTML = '<header><h1>Tic Tac Toe</h1><a href="#board" class="button">Start game</a></header>';
+startDiv.setAttribute("class","screen screen-start");
+startDiv.setAttribute("id","start");
+$("body").append(startDiv);
+$("a").click(function(){
+	$("#start").hide();
+	$("#board").show();
+	console.log("click");
+	
+});
+}
+$(gameStart);
 $("#player1").addClass("active");    
 var demBoxes = document.getElementsByClassName("box");
     activeShape = svgOimage;
