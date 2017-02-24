@@ -1,10 +1,14 @@
-    var xWinsString = "XXX";
-	var oWinsString = "OOO";
+//Bryant K. Feld techdegree project 4 tic tac toe v1    
+	const xWinsString = "XXX";
+	const oWinsString = "OOO";
     var currentPlayer = "O"
     var theBoard = [];
-	var svgOimage = 'url("img/o.svg")';
-    var svgXimage = 'url("img/x.svg")';
-	function gameStart (){
+	const svgOimage = 'url("img/o.svg")';
+    const svgXimage = 'url("img/x.svg")';
+	var demBoxes = document.getElementsByClassName("box");
+	var moveCount = 0;
+	
+function gameStart (){
 $("#board").hide;
 startDiv = document.createElement("div");
 startDiv.innerHTML = '<header><h1>Tic Tac Toe</h1><a href="#board" class="button">Start game</a></header>';
@@ -18,60 +22,65 @@ $("a").click(function(){
 	
 });
 }
-$(gameStart);
-$("#player1").addClass("active");    
-var demBoxes = document.getElementsByClassName("box");
-    activeShape = svgOimage;
-// game board event listener for player selected box
-var selectBoxEvent = function (gamebox){
-        gamebox.onclick = function(){
-			var selectedBoxNum = Array.prototype.indexOf.call(demBoxes, this);
-                console.log(selectedBoxNum);
-            theBoard[selectedBoxNum] = currentPlayer;
-            if (currentPlayer === "O"){
-				this.classList += " box-filled-1"; 
-				this.style.backgroundImage = activeShape;
-				activeShape = svgXimage; 
-				currentPlayer = "X";
-				if ($("#player1").hasClass("active")){
-					$("#player1").removeClass("active");
-					$("#player2").addClass("active");
-					}
-			}else{
-            if (currentPlayer === "X"){
-				this.classList += " box-filled-2"; 
-				this.style.backgroundImage = activeShape;
-				activeShape = svgOimage;
-				currentPlayer = "O";
-				if ($("#player2").hasClass("active")){
-					$("#player2").removeClass("active");
-					$("#player1").addClass("active");
-					}
-			}
-			}	
-            
-            if (winCheck(theBoard,xWinsString) === true){console.log("X wins!");}
-            if (winCheck(theBoard,oWinsString) === true){console.log("O wins!");} 
-                                    
-    };
-	
-}
-for (var index = 0; index < demBoxes.length; index++){
-	 selectBoxEvent(demBoxes[index]);
-$(demBoxes[index]).hover(function(){
-              var  boxStatus = $(this).hasClass("box-filled-1") || $(this).hasClass("box-filled-2");
-             if(boxStatus === false){$(this).css("background-image", activeShape);}
-    }, function(){
-              var  boxStatus = $(this).hasClass("box-filled-1") || $(this).hasClass("box-filled-2");
-             if (boxStatus === false){$(this).css("background-image", "none");}
-});
-}
-         
-	
 
-                                  
-var winCheck = function (board,testString){
-    var boolTest = [];
+function gameOver(theWinner){
+	let endDiv = document.createElement("div");
+	endDiv.innerHTML = '<header><h1>Tic Tac Toe</h1><p class="message">Winner</p><a href="#" class="button">New game</a></header>';
+	endDiv.setAttribute("id","finish");
+	endDiv.setAttribute("class","screen screen-win") ;
+	if (theWinner === "o"){endDiv.className += " screen-win-one";}
+	if (theWinner === "x"){endDiv.className += " screen-win-two";}
+	$("#theBoard").hide();
+	$("body").append(endDiv);
+	$("a").click(function(){
+		$("#finish").remove(); 
+		$("#start").remove();
+		resetBoard();
+		$("#board").show();
+		console.log("clickety click");
+	});
+}
+
+function itsaDraw (){
+	let drawDiv = document.createElement("div");
+	drawDiv.innerHTML = '<header><h1>Tic Tac Toe</h1><p class="message">it\'s a draw</p><a href="#" class="button">New game</a></header>';
+	drawDiv.setAttribute("id","finish");
+	drawDiv.setAttribute("class","screen screen-win  screen-win-tie");
+	$("#theBoard").hide(); 
+	$("body").append(drawDiv); 
+	$("a").click(function(){
+		$("#finish").remove(); 
+		$("#start").remove();
+		resetBoard();
+		$("#board").show();
+		console.log("clickety click");
+	});
+	
+}
+ 
+
+function resetBoard (){
+	for (let x=0; x<=8; x++){
+	if ($(demBoxes[x]).hasClass("box-filled-1" )){
+		$(demBoxes[x]).removeClass("box-filled-1");
+		$(demBoxes).css("background-image", "none");}
+		else {
+	if ($(demBoxes[x]).hasClass("box-filled-2")){
+		$(demBoxes[x]).removeClass("box-filled-2");
+		$(demBoxes[x]).css("background-image", "none");
+		}
+		}
+	}
+$("#player1").addClass("active");  
+$("#player2").removeClass ("active");
+theBoard.length = 0;    
+activeShape = svgOimage;
+currentPlayer = "O"; 
+moveCount = 0;
+}
+
+function winCheck(board,testString){
+    let boolTest = [];
     boolTest[0] = ((board[0]+ board[1] + board[2]) === testString);
     boolTest[1] = ((board[3]+ board[4] + board[5]) === testString);
     boolTest[2] = ((board[6]+ board[7] + board[8]) === testString);
@@ -83,5 +92,63 @@ var winCheck = function (board,testString){
     for (var index = 0; index <= 7; index++){
         if (boolTest[index] === true){return true;}
     }
+	if (moveCount === 9){itsaDraw();}
     return false;
 }
+
+
+// game board event listener for player selected box
+function selectBoxEvent(gamebox){
+        gamebox.onclick = function(){
+			let selectedBoxNum = Array.prototype.indexOf.call(demBoxes, this);
+                console.log(selectedBoxNum);
+            theBoard[selectedBoxNum] = currentPlayer;
+            if (currentPlayer === "O"){
+				this.classList += " box-filled-1"; 
+				this.style.backgroundImage = activeShape;
+				activeShape = svgXimage; 
+				currentPlayer = "X";
+				if ($("#player1").hasClass("active")){
+					$("#player1").removeClass("active");
+					$("#player2").addClass("active");
+					moveCount += 1;
+					}
+			}else{
+            if (currentPlayer === "X"){
+				this.classList += " box-filled-2"; 
+				this.style.backgroundImage = activeShape;
+				activeShape = svgOimage;
+				currentPlayer = "O";
+				if ($("#player2").hasClass("active")){
+					$("#player2").removeClass("active");
+					$("#player1").addClass("active");
+					moveCount += 1;
+					}
+			}
+			}	
+            
+            if (winCheck(theBoard,xWinsString) === true){gameOver("x");}
+            if (winCheck(theBoard,oWinsString) === true){gameOver("o");}
+			// if all boxes occcupied and there is no winner it's a draw
+                                    
+    };
+	
+}
+
+$(gameStart);
+$("#player1").addClass("active");    
+activeShape = svgOimage;
+for (var index = 0; index < demBoxes.length; index++){
+	 selectBoxEvent(demBoxes[index]);
+$(demBoxes[index]).hover(function(){
+              var  boxStatus = $(this).hasClass("box-filled-1") || $(this).hasClass("box-filled-2");
+             if(boxStatus === false){$(this).css("background-image", activeShape);}
+    }, function(){
+              var  boxStatus = $(this).hasClass("box-filled-1") || $(this).hasClass("box-filled-2");
+             if (boxStatus === false){$(this).css("background-image", "none");}
+});
+}
+  
+  
+	
+
