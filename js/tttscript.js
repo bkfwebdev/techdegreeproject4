@@ -1,13 +1,14 @@
+(function (){
 //Bryant K. Feld techdegree project 4 tic tac toe v1    
 	const xWinsString = "XXX";
 	const oWinsString = "OOO";
-    var currentPlayer = "O"
-    var theBoard = [];
 	const svgOimage = 'url("img/o.svg")';
     const svgXimage = 'url("img/x.svg")';
+    var currentPlayer = "O"
+    var theBoard = [];
 	var demBoxes = document.getElementsByClassName("box");
 	var moveCount = 0;
-	
+// OPENING GAME SCREEN
 function gameStart (){
 $("#board").hide;
 startDiv = document.createElement("div");
@@ -22,7 +23,7 @@ $("a").click(function(){
 	
 });
 }
-
+// END GAME WIN SCREEN
 function gameOver(theWinner){
 	let endDiv = document.createElement("div");
 	endDiv.innerHTML = '<header><h1>Tic Tac Toe</h1><p class="message">Winner</p><a href="#" class="button">New game</a></header>';
@@ -40,7 +41,7 @@ function gameOver(theWinner){
 		console.log("clickety click");
 	});
 }
-
+// END GAME DRAW SCREEN
 function itsaDraw (){
 	let drawDiv = document.createElement("div");
 	drawDiv.innerHTML = '<header><h1>Tic Tac Toe</h1><p class="message">it\'s a draw</p><a href="#" class="button">New game</a></header>';
@@ -58,7 +59,7 @@ function itsaDraw (){
 	
 }
  
-
+// RESET THE BOARD AT END OF GAME
 function resetBoard (){
 	for (let x=0; x<=8; x++){
 	if ($(demBoxes[x]).hasClass("box-filled-1" )){
@@ -79,6 +80,7 @@ currentPlayer = "O";
 moveCount = 0;
 }
 
+// CHECK THE BOARD FOR A WINNER OR DRAW
 function winCheck(board,testString){
     let boolTest = [];
     boolTest[0] = ((board[0]+ board[1] + board[2]) === testString);
@@ -129,12 +131,12 @@ function selectBoxEvent(gamebox){
             
             if (winCheck(theBoard,xWinsString) === true){gameOver("x");}
             if (winCheck(theBoard,oWinsString) === true){gameOver("o");}
-			// if all boxes occcupied and there is no winner it's a draw
+		
                                     
     };
 	
 }
-
+// INTERACTIVE BOARD ENGINE
 $(gameStart);
 $("#player1").addClass("active");    
 activeShape = svgOimage;
@@ -148,7 +150,4 @@ $(demBoxes[index]).hover(function(){
              if (boxStatus === false){$(this).css("background-image", "none");}
 });
 }
-  
-  
-	
-
+})();
