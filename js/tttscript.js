@@ -1,13 +1,16 @@
-(function (){
-//Bryant K. Feld techdegree project 4 tic tac toe v1    
+//Bryant K. Feld techdegree project 4 tic tac toe v1 
+(function (){// SELF EXECUTING FUNCTION OPEN
+  
+// VARIABLES AND CONSTANTS
 	const xWinsString = "XXX";
 	const oWinsString = "OOO";
 	const svgOimage = 'url("img/o.svg")';
     const svgXimage = 'url("img/x.svg")';
-    var currentPlayer = "O"
+    var currentPlayer = "O";
     var theBoard = [];
 	var demBoxes = document.getElementsByClassName("box");
 	var moveCount = 0;
+	
 // OPENING GAME SCREEN
 function gameStart (){
 $("#board").hide;
@@ -19,10 +22,9 @@ $("body").append(startDiv);
 $("a").click(function(){
 	$("#start").hide();
 	$("#board").show();
-	console.log("click");
-	
 });
 }
+
 // END GAME WIN SCREEN
 function gameOver(theWinner){
 	let endDiv = document.createElement("div");
@@ -41,6 +43,7 @@ function gameOver(theWinner){
 		console.log("clickety click");
 	});
 }
+
 // END GAME DRAW SCREEN
 function itsaDraw (){
 	let drawDiv = document.createElement("div");
@@ -99,7 +102,7 @@ function winCheck(board,testString){
 }
 
 
-// game board event listener for player selected box
+// GAME BOARD EVENT LISTENER - BOX SELECTOR
 function selectBoxEvent(gamebox){
         gamebox.onclick = function(){
 			let selectedBoxNum = Array.prototype.indexOf.call(demBoxes, this);
@@ -150,4 +153,5 @@ $(demBoxes[index]).hover(function(){
              if (boxStatus === false){$(this).css("background-image", "none");}
 });
 }
+// SELF EXECUTING FUNCTION CLOSE
 })();
