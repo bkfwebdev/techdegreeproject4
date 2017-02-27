@@ -105,9 +105,10 @@ function winCheck(board,testString){
 // GAME BOARD EVENT LISTENER - BOX SELECTOR
 function selectBoxEvent(gamebox){
         gamebox.onclick = function(){
+			let boxCondition = ($(this).hasClass("box-filled-1") || $(this).hasClass("box-filled-2"));
+			if (boxCondition === false){
 			let selectedBoxNum = Array.prototype.indexOf.call(demBoxes, this);
-                console.log(selectedBoxNum);
-            theBoard[selectedBoxNum] = currentPlayer;
+                theBoard[selectedBoxNum] = currentPlayer;
             if (currentPlayer === "O"){
 				this.classList += " box-filled-1"; 
 				this.style.backgroundImage = activeShape;
@@ -138,6 +139,7 @@ function selectBoxEvent(gamebox){
                                     
     };
 	
+}
 }
 // INTERACTIVE BOARD ENGINE
 $(gameStart);
