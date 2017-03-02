@@ -14,52 +14,44 @@
 // OPENING GAME SCREEN
 function gameStart (){
 $("#board").hide;
-startDiv = document.createElement("div");
+let startDiv = document.createElement("div");
 startDiv.innerHTML = '<header><h1>Tic Tac Toe</h1><a href="#board" class="button">Start game</a></header>';
 startDiv.setAttribute("class","screen screen-start");
 startDiv.setAttribute("id","start");
-$("body").append(startDiv);
-$("a").click(function(){
-	$("#start").hide();
-	$("#board").show();
-});
+screenUpdate(startDiv);
 }
 
 // END GAME WIN SCREEN
 function gameOver(theWinner){
 	let endDiv = document.createElement("div");
-	endDiv.innerHTML = '<header><h1>Tic Tac Toe</h1><p class="message">Winner</p><a href="#" class="button">New game</a></header>';
+	endDiv.innerHTML = '<header><h1>Tic Tac Toe</h1><p class="message">Winner</p><a href="#board" class="button">New game</a></header>';
 	endDiv.setAttribute("id","finish");
 	endDiv.setAttribute("class","screen screen-win") ;
 	if (theWinner === "o"){endDiv.className += " screen-win-one";}
 	if (theWinner === "x"){endDiv.className += " screen-win-two";}
-	$("#theBoard").hide();
-	$("body").append(endDiv);
-	$("a").click(function(){
-		$("#finish").remove(); 
-		$("#start").remove();
-		resetBoard();
-		$("#board").show();
-		console.log("clickety click");
-	});
+	screenUpdate(endDiv);
 }
 
 // END GAME DRAW SCREEN
 function itsaDraw (){
 	let drawDiv = document.createElement("div");
-	drawDiv.innerHTML = '<header><h1>Tic Tac Toe</h1><p class="message">it\'s a draw</p><a href="#" class="button">New game</a></header>';
+	drawDiv.innerHTML = '<header><h1>Tic Tac Toe</h1><p class="message">it\'s a draw</p><a href="#board" class="button">New game</a></header>';
 	drawDiv.setAttribute("id","finish");
 	drawDiv.setAttribute("class","screen screen-win  screen-win-tie");
+	screenUpdate(drawDiv);
+	
+}
+
+function screenUpdate(newScreeen){
 	$("#theBoard").hide(); 
-	$("body").append(drawDiv); 
+	$("body").append(newScreeen); 
 	$("a").click(function(){
 		$("#finish").remove(); 
 		$("#start").remove();
 		resetBoard();
 		$("#board").show();
-		console.log("clickety click");
 	});
-	
+
 }
  
 // RESET THE BOARD AT END OF GAME
