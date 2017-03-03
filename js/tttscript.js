@@ -125,10 +125,13 @@ function selectBoxEvent(gamebox){
 			}
 			}	
             
-            if (winCheck(theBoard,xWinsString) === true){gameOver("x");}
-            else if (winCheck(theBoard,oWinsString) === true){gameOver("o");}
+            let condition1 = (winCheck(theBoard,xWinsString))
+            let condition2 = (winCheck(theBoard,oWinsString))
+			let condition3 = moveCount === 9;
+			if (condition1){gameOver("x");}
+			else if (condition2){gameOver("o");}
 			else {
-				if (moveCount === 9){itsaDraw();}
+				if ((condition1 === false) && (condition2 === false) && (condition3 === true)){itsaDraw();}
 			}
 		
                                     
