@@ -89,7 +89,7 @@ function winCheck(board,testString){
     for (var index = 0; index <= 7; index++){
         if (boolTest[index] === true){return true;}
     }
-	if (moveCount === 9){itsaDraw();}
+	
     return false;
 }
 
