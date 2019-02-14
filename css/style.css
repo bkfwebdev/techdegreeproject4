@@ -16,6 +16,7 @@ h1 {
   width: 1.875em; }
 
 .button {
+  margin:2px;
   background: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
