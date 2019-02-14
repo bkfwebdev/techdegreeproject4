@@ -118,6 +118,8 @@
     function() {
       // score box 0
       let score = 0;
+      if (theBoard[0] === "O" || theBoard[0] === "X"){return 0;} 
+
       score =
         score +
         scoreBox(theBoard[1]) +
@@ -133,6 +135,8 @@
     function() {
       // score box 1
       let score = 0;
+      if (theBoard[1] === "O" || theBoard[1] === "X"){return 0;} 
+
       score =
         score +
         scoreBox(theBoard[0]) +
@@ -145,6 +149,8 @@
     function() {
       // score box 2
       let score = 0;
+      if (theBoard[2] === "O" || theBoard[2] === "X"){return 0;} 
+
       score =
         score +
         scoreBox(theBoard[0]) +
@@ -159,6 +165,7 @@
     function() {
       // score box 3
       let score = 0;
+      if (theBoard[3] === "O" || theBoard[3] === "X"){return 0;} 
       score =
         score +
         scoreBox(theBoard[0]) +
@@ -171,6 +178,8 @@
     function() {
       // score box 4
       let score = 0;
+      if (theBoard[4] === "O" || theBoard[4] === "X"){return 0;} 
+
       score =
         score +
         scoreBox(theBoard[0]) +
@@ -187,6 +196,8 @@
     function() {
       // score box 5
       let score = 0;
+      if (theBoard[5] === "O" || theBoard[5] === "X"){return 0;} 
+
       score =
         score +
         scoreBox(theBoard[2]) +
@@ -199,6 +210,8 @@
     function() {
       // score box 6
       let score = 0;
+      if (theBoard[6] === "O" || theBoard[6] === "X"){return 0;} 
+
       score =
         score +
         scoreBox(theBoard[0]) +
@@ -213,6 +226,8 @@
     function() {
       // score box 7
       let score = 0;
+      if (theBoard[7] === "O" || theBoard[7] === "X"){return 0;} 
+
       score =
         score +
         scoreBox(theBoard[1]) +
@@ -225,6 +240,8 @@
     function() {
       // score box 8
       let score = 0;
+      if (theBoard[8] === "O" || theBoard[8] === "X"){return 0;} 
+
       score =
         score +
         scoreBox(theBoard[0]) +
